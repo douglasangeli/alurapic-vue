@@ -3,13 +3,22 @@ import Cadastro from "./components/cadastro/Cadastro.vue";
 
 export const routes = [
   {
-    path: "",
+    path: "/home",
+    name: "home",
     component: Home,
-    titulo: "Home"
+    titulo: "Home",
+    menu: true
   },
   {
     path: "/cadastro",
+    name: "cadastro",
     component: Cadastro,
-    titulo: "Cadastro"
+    titulo: "Cadastro",
+    menu: true
+  },
+  {
+    path: "*",
+    component: Home,
+    menu: false
   }
 ];
