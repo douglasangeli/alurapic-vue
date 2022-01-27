@@ -54,4 +54,8 @@ export default {
 .painel-fade-leave-active {
   transition: opacity 0.5s, height 1s;
 }
+
+.painel-corpo {
+  overflow: hidden;
+}
 </style>
