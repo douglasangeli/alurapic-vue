@@ -24,6 +24,9 @@
             :url="foto.url"
             :titulo="foto.titulo"
           />
+          <router-link :to="{ name: 'altera', params: { id: foto._id } }">
+            <meu-botao tipo="button" rotulo="EDITAR" />
+          </router-link>
           <meu-botao
             tipo="button"
             rotulo="REMOVER"
@@ -85,7 +88,7 @@ export default {
 
     this.service.lista().then(
       (response) => (this.fotos = response.body),
-      (err) => console.log(err)
+      (err) => (this.mensagem = err.message)
     );
   },
 };
