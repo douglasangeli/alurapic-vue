@@ -1,56 +1,83 @@
 <template>
   <div>
-    <h1 class="centralizado">Cadastro</h1>
-    <h2 class="centralizado">{{ foto.titulo }}</h2>
+    <div class="page-header">
+      <h1 class="centralizado">
+        Cadastro
+        <small v-if="foto._id" class="centralizado">Alterando</small>
+        <small v-else class="centralizado">Incluindo</small>
+      </h1>
+    </div>
 
-    <h2 v-if="foto._id" class="centralizado">Alterando</h2>
-    <h2 v-else class="centralizado">Incluindo</h2>
-
-    <form @submit.prevent="grava()">
-      <div class="controle">
-        <label for="titulo">TÍTULO</label>
-        <input
-          name="titulo"
-          v-validate
-          data-vv-rules="required|min:3|max:30"
-          data-vv-as="título"
-          id="titulo"
-          autocomplete="off"
-          v-model="foto.titulo"
-        />
-        <span class="erro" v-show="errors.has('titulo')">
-          {{ errors.first("titulo") }}
-        </span>
+    <form @submit.prevent="grava()" class="form-horizontal">
+      <div
+        class="form-group has-feedback"
+        :class="errors.has('titulo') ? 'has-error' : ''"
+      >
+        <label class="col-sm-1 control-label" for="titulo">Título</label>
+        <div class="col-sm-11">
+          <input
+            class="form-control"
+            name="titulo"
+            v-validate
+            data-vv-rules="required|min:3|max:30"
+            data-vv-as="título"
+            id="titulo"
+            placeholder="Digite o título da imagem"
+            autocomplete="off"
+            v-model="foto.titulo"
+          />
+          <template v-if="errors.has('titulo')">
+            <span class="glyphicon glyphicon-remove form-control-feedback" />
+            <small class="text-danger">
+              {{ errors.first("titulo") }}
+            </small>
+          </template>
+        </div>
       </div>
 
-      <div class="controle">
-        <label for="url">URL</label>
-        <input
-          name="url"
-          v-validate
-          data-vv-rules="required"
-          data-vv-as="URL"
-          id="url"
-          autocomplete="off"
-          v-model="foto.url"
-        />
-        <span class="erro" v-show="errors.has('url')">
-          {{ errors.first("url") }}
-        </span>
-        <imagem-responsiva
-          v-show="foto.url"
-          :url="foto.url"
-          :titulo="foto.titulo"
-        />
+      <div
+        class="form-group has-feedback"
+        :class="errors.has('url') ? 'has-error' : ''"
+      >
+        <label class="col-sm-1 control-label" for="url">URL</label>
+        <div class="col-sm-11">
+          <input
+            class="form-control"
+            name="url"
+            v-validate
+            data-vv-rules="required"
+            data-vv-as="URL"
+            id="url"
+            placeholder="Digite a URL da imagem"
+            autocomplete="off"
+            v-model="foto.url"
+          />
+          <template v-if="errors.has('url')">
+            <span class="glyphicon glyphicon-remove form-control-feedback" />
+            <small class="text-danger">
+              {{ errors.first("url") }}
+            </small>
+          </template>
+          <div v-if="foto.url" class="container imagem-responsavel">
+            <imagem-responsiva :url="foto.url" :titulo="foto.titulo" />
+          </div>
+          <div v-else class="sem-imagem">
+            <span class="glyphicon glyphicon-picture" aria-hidden="true" />
+          </div>
+        </div>
       </div>
 
-      <div class="controle">
-        <label for="descricao">DESCRIÇÃO</label>
-        <textarea
-          id="descricao"
-          autocomplete="off"
-          v-model="foto.descricao"
-        ></textarea>
+      <div class="form-group">
+        <label class="col-sm-1 control-label" for="descricao">Descrição</label>
+        <div class="col-sm-11">
+          <textarea
+            class="form-control"
+            id="descricao"
+            autocomplete="off"
+            placeholder="Digite a descrição da imagem"
+            v-model="foto.descricao"
+          />
+        </div>
       </div>
 
       <div class="centralizado">
@@ -107,21 +134,6 @@ export default {
 .centralizado {
   text-align: center;
 }
-.controle {
-  font-size: 1.2em;
-  margin-bottom: 20px;
-}
-.controle label {
-  display: block;
-  font-weight: bold;
-}
-
-.controle label + input,
-.controle textarea {
-  width: 100%;
-  font-size: inherit;
-  border-radius: 5px;
-}
 
 .centralizado {
   text-align: center;
@@ -130,5 +142,15 @@ export default {
 .erro {
   color: red;
   font-size: small;
+}
+
+.imagem-responsavel {
+  width: 50%;
+  margin: 50px auto;
+}
+
+.sem-imagem {
+  text-align: center;
+  padding: 10px;
 }
 </style>

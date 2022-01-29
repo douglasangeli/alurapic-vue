@@ -1,17 +1,17 @@
 <template>
   <div>
-    <h1 class="centralizado">{{ titulo }}</h1>
-
-    <p v-show="mensagem" class="centralizado">
+    <div v-show="mensagem" class="alert alert-info centralizado" role="alert">
       {{ mensagem }}
-    </p>
+    </div>
 
-    <input
-      type="search"
-      class="filtro"
-      placeholder="filtre por parte do título"
-      @input="filtro = $event.target.value"
-    />
+    <div class="container">
+      <input
+        class="form-control filtro"
+        type="search"
+        placeholder="Filtre por parte do título"
+        @input="filtro = $event.target.value"
+      />
+    </div>
     <ul class="lista-fotos">
       <li
         class="lista-fotos-item"
@@ -105,10 +105,5 @@ export default {
 
 .lista-fotos .lista-fotos-item {
   display: inline-block;
-}
-
-.filtro {
-  display: block;
-  width: 100%;
 }
 </style>
